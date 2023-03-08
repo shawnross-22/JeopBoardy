@@ -5,15 +5,15 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:JeopBoardy"
         mc:Ignorable="d"
-        Title="MainWindow" Height="365" Width="610">
+        Title="MainWindow" Height="385" Width="610">
     <Grid>
-        <Viewbox StretchDirection="DownOnly" Stretch="Fill" Panel.ZIndex="1">
-        <TextBlock x:Name="tbQuestion" HorizontalAlignment="Left" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Margin="0,60,0,0" Width="600" Height="295" TextAlignment="Center" Background="#FF0226B2" Foreground="#FFD9B218" FontFamily="Gloucester MT Extra Condensed" FontSize="40" Panel.ZIndex="1" Visibility="Hidden"/>
-        </Viewbox>
+
+        <TextBlock x:Name="tbQuestion" HorizontalAlignment="Left" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Margin="0,60,0,0" Width="600" Height="270" TextAlignment="Center" Background="#FF0226B2" Foreground="#FFD9B218" FontFamily="Gloucester MT Extra Condensed" FontSize="40" Panel.ZIndex="1" Visibility="Hidden"/>
         <TextBox x:Name="txtDD" HorizontalAlignment="Left" Height="20" Margin="500,30,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="60" Visibility="Hidden"/>
         <TextBox x:Name="txtGame" HorizontalAlignment="Left" Height="20" Margin="150,30,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="60" Visibility="Hidden"/>
         <Button x:Name="btnGame" HorizontalAlignment="Left" Content="Game ID" VerticalAlignment="Top" Margin="150,10,0,0" Width="60" Height="20" IsEnabled="False" Visibility="Hidden" Click="btnGameClick"/>
         <TextBlock x:Name="tbDD" HorizontalAlignment="Left" TextWrapping="Wrap" Text="Wager?" VerticalAlignment="Top" Margin="500,10,0,0" Width="60" Height="20" TextAlignment="Center" Visibility="Hidden"/>
+        <TextBlock x:Name="tbAnswer" HorizontalAlignment="Left" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Margin="0,330,0,0" Width="600" Height="20" TextAlignment="Center" Visibility="Visible"/>
         <TextBox x:Name="txtPlayer1" HorizontalAlignment="Left" Height="20" Margin="210,10,0,0" TextWrapping="Wrap" Text="Player 1" VerticalAlignment="Top" Width="60" />
         <TextBox x:Name="txtPlayer2" HorizontalAlignment="Left" Height="20" Margin="270,10,0,0" TextWrapping="Wrap" Text="Player 2" VerticalAlignment="Top" Width="60" />
         <TextBox x:Name="txtPlayer3" HorizontalAlignment="Left" Height="20" Margin="330,10,0,0" TextWrapping="Wrap" Text="Player 3" VerticalAlignment="Top" Width="60" />

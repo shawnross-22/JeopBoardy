@@ -39,6 +39,7 @@ namespace JeopBoardy
         public int gameIndex = 0;
         public bool final = false;
         public bool wagers = false;
+        public System.Windows.Controls.Button control;
         public System.Windows.Controls.Button min;
         public System.Windows.Controls.Button mid;
         public System.Windows.Controls.Button max;
@@ -56,7 +57,7 @@ namespace JeopBoardy
             btnQs.Add(btn15); btnQs.Add(btn25); btnQs.Add(btn35); btnQs.Add(btn45); btnQs.Add(btn55); btnQs.Add(btn65);
             btnPs.Add(btnScore1); btnPs.Add(btnScore2); btnPs.Add(btnScore3); btnPs.Add(btnNoAnswer);
             txtPlayers.Add(txtPlayer1); txtPlayers.Add(txtPlayer2); txtPlayers.Add(txtPlayer3);
-            
+            control = btnScore1;
             
         }
 
@@ -103,35 +104,58 @@ namespace JeopBoardy
             tbQuestion.Visibility = Visibility.Visible;
             if (!boolDouble)
             {
-                tbQuestion.Text = clues[btnQs.IndexOf(clickedQuestion)][0];
                 if (clues[btnQs.IndexOf(clickedQuestion)][2].Substring(0, 1) == "1")
                 {
                     DD = true;
                     tbDD.Visibility = Visibility.Visible;
                     txtDD.Visibility = Visibility.Visible;
+                    btnNoAnswer.Content = "Make Wager";
                     System.Windows.MessageBox.Show("Answer!");
+                    wagers = true;
+                    tbQuestion.Text = "";
+                    btnNoAnswer.IsEnabled = true;
+                    txtDD.Text = "";
+                    txtDD.IsEnabled = true;
                 }
+                
             }
             else
-            {
-                tbQuestion.Text = tbQuestion.Text = clues[30 + btnQs.IndexOf(clickedQuestion)][0]; 
+            {              
                 if (clues[30 + btnQs.IndexOf(clickedQuestion)][2].Substring(0, 1) == "1")
                 {
+                    tbQuestion.Text = "";
                     DD = true;
+                    txtDD.Text = "";
                     tbDD.Visibility = Visibility.Visible;
                     txtDD.Visibility = Visibility.Visible;                  
                     System.Windows.MessageBox.Show("Answer!");
+                    wagers = true;
+                    btnNoAnswer.IsEnabled = true;
+                    btnNoAnswer.Content = "Make Wager";
+                    txtDD.IsEnabled = true;
+                }
+
+            }
+
+            if (!wagers)
+            {
+                if (boolDouble)
+                {
+                    tbQuestion.Text = clues[30 + btnQs.IndexOf(clickedQuestion)][0];
+                    tbAnswer.Text = clues[30 + btnQs.IndexOf(clickedQuestion)][1];
+                }
+                else
+                {
+                    tbQuestion.Text = clues[btnQs.IndexOf(clickedQuestion)][0];
+                    tbAnswer.Text = clues[btnQs.IndexOf(clickedQuestion)][1];
+                }
+                foreach (var button in btnPs)
+                {
+                    button.IsEnabled = true;
                 }
             }
             
-            foreach (var button in btnPs)
-            {
-                button.IsEnabled = true;
-            }
-            if (DD)
-            {
-                btnNoAnswer.IsEnabled = false;
-            }
+ 
         }          
 
 
@@ -140,67 +164,84 @@ namespace JeopBoardy
             System.Windows.Controls.Button clickedScore = sender as System.Windows.Controls.Button;
             if (DD)
             {
-                if (Convert.ToInt32(txtDD.Text) >= 0)
+                if (!wagers)
                 {
-                    if (Convert.ToInt32(clickedScore.Content) < 1000 && Convert.ToInt32(txtDD.Text) <= 1000)
+                    DD = false;
+                    txtDD.Visibility = Visibility.Hidden;
+                    tbDD.Visibility = Visibility.Hidden;
+                    tbQuestion.Visibility = Visibility.Hidden;
+                    tbAnswer.Text = "";
+                    clickedScore.Content = Convert.ToString(Convert.ToInt32(clickedScore.Content) + Convert.ToInt32(txtDD.Text));
+                    control.IsEnabled = false;
+                    clickedQuestion.IsEnabled = false;
+                    clickedQuestion.Visibility = Visibility.Hidden;
+                    count += 1;
+                    control = clickedScore;
+                    if (count == 30)
                     {
-                        DD = false;
-                        txtDD.Visibility = Visibility.Hidden;
-                        tbDD.Visibility = Visibility.Hidden;
-                        tbQuestion.Visibility = Visibility.Hidden;
-                        clickedScore.Content = Convert.ToString(Convert.ToInt32(clickedScore.Content) + Convert.ToInt32(txtDD.Text));
-                        foreach (var button in btnPs)
-                        {
-                            button.IsEnabled = false;
-                        }
-                        clickedQuestion.IsEnabled = false;
-                        clickedQuestion.Visibility = Visibility.Hidden;
-                        count += 1;
-                        if (count == 30)
-                        {
-                            doubleJeopardy();
-                        }
-                        if (count == 60)
-                        {
-                            finalJeopardy();
-                        }
+                        doubleJeopardy();
                     }
-                    else if (Convert.ToInt32(clickedScore.Content) > 1000 && Convert.ToInt32(txtDD.Text) <= Convert.ToInt32(clickedScore.Content))
+                    if (count == 60)
                     {
-                        DD = false;
-                        txtDD.Visibility = Visibility.Hidden;
-                        tbDD.Visibility = Visibility.Hidden;
-                        tbQuestion.Visibility = Visibility.Hidden;
-                        clickedScore.Content = Convert.ToString(Convert.ToInt32(clickedScore.Content) + Convert.ToInt32(txtDD.Text));
-                        foreach (var button in btnPs)
-                        {
-                            button.IsEnabled = false;
-                        }
-                        clickedQuestion.IsEnabled = false;
-                        clickedQuestion.Visibility = Visibility.Hidden;
-                        count += 1;
-                        if (count == 30)
-                        {
-                            doubleJeopardy();
-                        }
-                        if (count == 60)
-                        {
-                            finalJeopardy();
-                        }
-                    }
-                    else
-                    {
-                        System.Windows.MessageBox.Show("Wager is invalid.");
+                        finalJeopardy();
                     }
                 }
                 else
                 {
-                    System.Windows.MessageBox.Show("Wager is invalid.");
-                }               
+                    if (clickedScore == btnNoAnswer && txtDD.Text != "")
+                    {
+                        if (Convert.ToInt32(txtDD.Text) >= 0)
+                        {
+                            if (Convert.ToInt32(control.Content) < 1000 && Convert.ToInt32(txtDD.Text) <= 1000)
+                            {
+                                if (boolDouble)
+                                {
+                                    tbQuestion.Text = tbQuestion.Text = clues[30 + btnQs.IndexOf(clickedQuestion)][0];
+                                    tbAnswer.Text = clues[30 + btnQs.IndexOf(clickedQuestion)][1];
+                                }
+                                else
+                                {
+                                    tbQuestion.Text = tbQuestion.Text = clues[btnQs.IndexOf(clickedQuestion)][0];
+                                    tbAnswer.Text = clues[btnQs.IndexOf(clickedQuestion)][1];
+                                }
+                                wagers = false;
+                                control.IsEnabled = true;
+                                btnNoAnswer.IsEnabled = false;
+                                btnNoAnswer.Content = "No Answer";
+                                txtDD.IsEnabled = false;
+                            }
+                            else if (Convert.ToInt32(control.Content) > 1000 && Convert.ToInt32(txtDD.Text) <= Convert.ToInt32(control.Content))
+                            {
+                                if (boolDouble)
+                                {
+                                    tbQuestion.Text = tbQuestion.Text = clues[30 + btnQs.IndexOf(clickedQuestion)][0];
+                                    tbAnswer.Text = clues[30 + btnQs.IndexOf(clickedQuestion)][1];
+                                }
+                                else
+                                {
+                                    tbQuestion.Text = tbQuestion.Text = clues[btnQs.IndexOf(clickedQuestion)][0];
+                                    tbAnswer.Text = clues[btnQs.IndexOf(clickedQuestion)][1];
+                                }
+                                wagers = false;
+                                control.IsEnabled = true;
+                                btnNoAnswer.IsEnabled = false;
+                                btnNoAnswer.Content = "No Answer";
+                                txtDD.IsEnabled = false;
+                            }
+                            else
+                            {
+                                System.Windows.MessageBox.Show("Wager is invalid.");
+                            }
+                        }
+                        else
+                        {
+                            System.Windows.MessageBox.Show("Wager is invalid.");
+                        }   
+                    }                                          
+                }           
             }
             else if (final)
-            {                       
-
+            {
                 if (turn==1)
                 {
                     if (Convert.ToInt32(txtDD.Text) < 0 || Convert.ToInt32(txtDD.Text) > Convert.ToInt32(min.Content))
@@ -209,6 +250,7 @@ namespace JeopBoardy
                     }
                     else
                     {
+                        txtDD.IsEnabled = false;
                         clickedScore.Content = Convert.ToString(Convert.ToInt32(clickedScore.Content) + Convert.ToInt32(txtDD.Text));
                         if (btnPs.Count()>2)
                         {
@@ -234,6 +276,7 @@ namespace JeopBoardy
                     }
                     else
                     {
+                        txtDD.IsEnabled = false;
                         mid.Content = Convert.ToString(Convert.ToInt32(mid.Content) + Convert.ToInt32(txtDD.Text));
                         turn += 1;
                         mid.IsEnabled = false;
@@ -249,6 +292,7 @@ namespace JeopBoardy
                     }
                     else
                     {
+                        txtDD.IsEnabled = false;
                         max.Content = Convert.ToString(Convert.ToInt32(max.Content) + Convert.ToInt32(txtDD.Text));
                         System.Windows.Controls.TextBox winner = txtPlayer1;
                         foreach (var player in txtPlayers)
@@ -270,8 +314,10 @@ namespace JeopBoardy
                 {
                     tbQuestion.Visibility = Visibility.Visible;
                     tbQuestion.Text = questions[gameIndex + 484];
+                    tbAnswer.Text = questions[gameIndex + 485];
                     txtDD.Text = "0";
                     txtDD.Visibility = Visibility.Visible;
+                    txtDD.IsEnabled = true;
                     tbDD.Visibility = Visibility.Visible;
                     tbDD.Text = txtPlayers[btnPs.IndexOf(min)].Text + "'s Wager";
                     btnNoAnswer.IsEnabled = false;
@@ -288,6 +334,7 @@ namespace JeopBoardy
                 if (Convert.ToString(clickedScore.Content) != "No Answer")
                 {
                     clickedScore.Content = Convert.ToString(Convert.ToInt32(clickedScore.Content) + Convert.ToInt32(clickedQuestion.Content));
+                    control = clickedScore;
                 }
                 foreach (var button in btnPs)
                 {
@@ -312,62 +359,25 @@ namespace JeopBoardy
             System.Windows.Controls.Button clickedScore = sender as System.Windows.Controls.Button;
             if (DD)
             {
-                if (Convert.ToInt32(txtDD.Text) >= 0)
+                clickedScore.Content = Convert.ToString(Convert.ToInt32(clickedScore.Content) - Convert.ToInt32(txtDD.Text));
+                DD = false;
+                txtDD.Visibility = Visibility.Hidden;
+                tbDD.Visibility = Visibility.Hidden;
+                tbQuestion.Visibility = Visibility.Hidden;
+                foreach (var button in btnPs)
                 {
-                    if (Convert.ToInt32(clickedScore.Content) < 1000 && Convert.ToInt32(txtDD.Text) <= 1000)
-                    {
-                        clickedScore.Content = Convert.ToString(Convert.ToInt32(clickedScore.Content) - Convert.ToInt32(txtDD.Text));
-                        DD = false;
-                        txtDD.Visibility = Visibility.Hidden;
-                        tbDD.Visibility = Visibility.Hidden;
-                        tbQuestion.Visibility = Visibility.Hidden;
-                        foreach (var button in btnPs)
-                        {
-                            button.IsEnabled = false;
-                        }
-                        clickedQuestion.IsEnabled = false;
-                        clickedQuestion.Visibility = Visibility.Hidden;
-                        count += 1;
-                        if (count == 30)
-                        {
-                            doubleJeopardy();
-                        }
-                        if (count == 60)
-                        {
-                            finalJeopardy();
-                        }
-                    }
-                    else if (Convert.ToInt32(clickedScore.Content) > 1000 && Convert.ToInt32(txtDD.Text) <= Convert.ToInt32(clickedScore.Content))
-                    {
-                        clickedScore.Content = Convert.ToString(Convert.ToInt32(clickedScore.Content) - Convert.ToInt32(txtDD.Text));
-                        DD = false;
-                        txtDD.Visibility = Visibility.Hidden;
-                        tbDD.Visibility = Visibility.Hidden;
-                        tbQuestion.Visibility = Visibility.Hidden;
-                        foreach (var button in btnPs)
-                        {
-                            button.IsEnabled = false;
-                        }
-                        clickedQuestion.IsEnabled = false;
-                        clickedQuestion.Visibility = Visibility.Hidden;
-                        count += 1;
-                        if (count == 30)
-                        {
-                            doubleJeopardy();
-                        }
-                        if (count == 60)
-                        {
-                            finalJeopardy();
-                        }
-                    }
-                    else
-                    {
-                        System.Windows.MessageBox.Show("Wager is invalid.");
-                    }
+                    button.IsEnabled = false;
                 }
-                else
+                clickedQuestion.IsEnabled = false;
+                clickedQuestion.Visibility = Visibility.Hidden;
+                count += 1;
+                if (count == 30)
                 {
-                    System.Windows.MessageBox.Show("Wager is invalid.");
+                    doubleJeopardy();
+                }
+                if (count == 60)
+                {
+                    finalJeopardy();
                 }
             }
             else if (final)
@@ -467,7 +477,6 @@ namespace JeopBoardy
         private void finalJeopardy()
         {
             btnPs.Remove(btnPs[3]);
-
             for (int i = 2; i > -1; i--)
             {
                 if (Convert.ToInt32(btnPs[i].Content) <= 0)
