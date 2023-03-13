@@ -34,6 +34,7 @@ getJData <- function(game.ids) {
       gsub(pattern="\\\\", replacement='') %>%
       gsub(pattern="&amp;", replacement='&') %>%
       gsub(pattern='<a href="https://www.j-archive.com/media/', replacement='<') %>%
+      gsub(pattern='<a href="http://www.j-archive.com/media/', replacement='<') %>%
       gsub(pattern="</a>", replacement='')   
     
     #FJ category line has a couple extra characters
