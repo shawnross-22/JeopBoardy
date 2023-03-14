@@ -83,7 +83,7 @@ namespace JeopBoardy
             StreamReader sr = null;
             if (File.Exists(fileSelected))
             {
-                sr = new StreamReader(File.OpenRead(fileSelected), System.Text.Encoding.ASCII);
+                sr = new StreamReader(File.OpenRead(fileSelected), Encoding.GetEncoding("iso-8859-1"));
                 Dictionary<string, string[]> Questions = new Dictionary<string, string[]>();
                 while (!sr.EndOfStream)
                 {
