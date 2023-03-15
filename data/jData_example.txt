@@ -1,0 +1,62 @@
+"game.id"|"ind"|"category"|"value"|"clue"|"response"|"is.dd"
+"1"|9999|JJ|BUZZER PRACTICE|200|On your phone or a second monitor, go to buzzin.live and join the room with the code I'll provide. Buzz in right after I finish reading this clue. To avoid being penalized and to make my job easier, you should only buzz once.| |0
+"2"|9999|JJ|PRETEND LIKE|200|To simulate the temporary lockout that occurs when players on the real show buzz before the clue is finished, I'll be resetting the buzzers right when I finish. If I see that you buzzed before I reset, I won't let you answer right away. Let's try again.| |0
+"3"|9999|JJ|YOU KNOW THE ANSWERS|200|Note that Zoom usually has more latency than buzzin.live, so you may find that you can buzz a little earlier than you think. Let's try again.| |0
+"4"|9999|JJ|TO THESE|200|This time, try to push it a little too far so we can see what it looks like when someone buzzes too early. Buzz before I finish reading the clue.| |0
+"5"|9999|JJ|CLUES|200|For this clue, we'll pretend that the player who buzzes first has given an incorrect response. After this, we can click through a few more practice clues to get accustomed.| |0
+"6"|9999|JJ|DAILY DOUBLE|200|After the wager is received, the clue will appear.| |1
+"7"|9999|JJ|BUZZER PRACTICE|400|Note how you've been performing relative to the other people in the game and try to get the timing down in these additional practice clues.| |0
+"8"|9999|JJ|PRETEND LIKE|400|Here's another practice clue.| |0
+"9"|9999|JJ|YOU KNOW THE ANSWERS|400|NA|NA|NA
+"10"|9999|JJ|TO THESE|400|NA|NA|NA
+"11"|9999|JJ|CLUES|400|NA|NA|NA
+"12"|9999|JJ|DAILY DOUBLE|400|NA|NA|NA
+"13"|9999|JJ|BUZZER PRACTICE|600|Here's another practice clue.| |0
+"14"|9999|JJ|PRETEND LIKE|600|Here's another practice clue.| |0
+"15"|9999|JJ|YOU KNOW THE ANSWERS|600|NA|NA|NA
+"16"|9999|JJ|TO THESE|600|NA|NA|NA
+"17"|9999|JJ|CLUES|600|NA|NA|NA
+"18"|9999|JJ|DAILY DOUBLE|600|NA|NA|NA
+"19"|9999|JJ|BUZZER PRACTICE|800|Here's another practice clue.| |0
+"20"|9999|JJ|PRETEND LIKE|800|Here's another practice clue.| |0
+"21"|9999|JJ|YOU KNOW THE ANSWERS|800|NA|NA|NA
+"22"|9999|JJ|TO THESE|800|NA|NA|NA
+"23"|9999|JJ|CLUES|800|NA|NA|NA
+"24"|9999|JJ|DAILY DOUBLE|800|NA|NA|NA
+"25"|9999|JJ|BUZZER PRACTICE|1000|Here's another practice clue.| |0
+"26"|9999|JJ|PRETEND LIKE|1000|Here's another practice clue.| |0
+"27"|9999|JJ|YOU KNOW THE ANSWERS|1000|NA|NA|NA
+"28"|9999|JJ|TO THESE|1000|NA|NA|NA
+"29"|9999|JJ|CLUES|1000|NA|NA|NA
+"30"|9999|JJ|DAILY DOUBLE|1000|NA|NA|NA
+"31"|9999|DJ| |400| | |0
+"32"|9999|DJ| |400|NA|NA|NA
+"33"|9999|DJ| |400|NA|NA|NA
+"34"|9999|DJ| |400|NA|NA|NA
+"35"|9999|DJ| |400|NA|NA|NA
+"36"|9999|DJ| |400|NA|NA|NA
+"37"|9999|DJ| |800|NA|NA|NA
+"38"|9999|DJ| |800|NA|NA|NA
+"39"|9999|DJ| |800|NA|NA|NA
+"40"|9999|DJ| |800|NA|NA|NA
+"41"|9999|DJ| |800|NA|NA|NA
+"42"|9999|DJ| |800|NA|NA|NA
+"43"|9999|DJ| |1200|NA|NA|NA
+"44"|9999|DJ| |1200|NA|NA|NA
+"45"|9999|DJ| |1200|NA|NA|NA
+"46"|9999|DJ| |1200|NA|NA|NA
+"47"|9999|DJ| |1200|NA|NA|NA
+"48"|9999|DJ| |1200|NA|NA|NA
+"49"|9999|DJ| |1600|NA|NA|NA
+"50"|9999|DJ| |1600|NA|NA|NA
+"51"|9999|DJ| |1600|NA|NA|NA
+"52"|9999|DJ| |1600|NA|NA|NA
+"53"|9999|DJ| |1600|NA|NA|NA
+"54"|9999|DJ| |1600|NA|NA|NA
+"55"|9999|DJ| |2000|NA|NA|NA
+"56"|9999|DJ| |2000|NA|NA|NA
+"57"|9999|DJ| |2000|NA|NA|NA
+"58"|9999|DJ| |2000|NA|NA|NA
+"59"|9999|DJ| |2000|NA|NA|NA
+"60"|9999|DJ| |2000|NA|NA|NA
+"61"|9999|FJ| |0| | |0
