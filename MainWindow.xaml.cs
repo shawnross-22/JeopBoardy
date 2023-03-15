@@ -31,7 +31,8 @@ namespace JeopBoardy
         public List<string> questions = new List<string>();
         public Dictionary<int, List<string>> clues = new Dictionary<int, List<string>>();
         public System.Windows.Controls.Button clickedQuestion;
-        public List<int> NAs = new List<int>();
+        public List<int> firstNAs = new List<int>();
+        public List<int> secondNAs = new List<int>();
         public bool DD = false;
         public bool boolDouble = false;
         public int count = 0;
@@ -531,7 +532,8 @@ namespace JeopBoardy
         private void doubleJeopardy()
         {
             boolDouble = true;
-            count += NAs.Count();
+
+            count += secondNAs.Count();
             for (int i = 0; i < 6; i++)
             {
                 tbCats[i].Text = questions[(8 * i) + gameIndex + 242];
@@ -539,7 +541,7 @@ namespace JeopBoardy
             for(int i = 0; i < 30; i++)
             {
                 btnQs[i].Content = Convert.ToString(Convert.ToInt32(btnQs[i].Content) * 2);
-                if (!NAs.Contains(i+30))
+                if (!secondNAs.Contains(i+30))
                 {
                     btnQs[i].IsEnabled = true;
                     btnQs[i].Visibility = Visibility.Visible;
@@ -630,13 +632,22 @@ namespace JeopBoardy
                         values.Add(questions[gameIndex + (i-gameIndex) + 4]);
                         if(questions[gameIndex + (i - gameIndex) + 4]=="NA")
                         {
-                            NAs.Add((i - gameIndex) / 8);
+                            if ((i - gameIndex) / 8 < 30)
+                            {
+                                firstNAs.Add((i - gameIndex) / 8);
+                            }
+                            else
+                            {
+                                secondNAs.Add((i - gameIndex) / 8);
+                            }
+                            
                         }                        
                         values.Add(questions[gameIndex + (i-gameIndex) + 5]);
                         values.Add(questions[gameIndex + (i-gameIndex) + 6]);
                         clues.Add((i - gameIndex)/8, values);
                     }
 
+                    count += firstNAs.Count();
                     for (int i = 0; i < 6; i++)
                     {
                         tbCats[i].Text = questions[(8 * i) + gameIndex + 2];
@@ -644,7 +655,7 @@ namespace JeopBoardy
 
                     for (int i = 0; i < 30; i++)
                     {
-                        if (!NAs.Contains(i))
+                        if (!firstNAs.Contains(i))
                         {
                             btnQs[i].IsEnabled = true;                          
                         }
