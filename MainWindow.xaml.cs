@@ -69,18 +69,18 @@ namespace JeopBoardy
         private void btnNew_Click(object sender, RoutedEventArgs e)
         {
             //Process.Start("explorer.exe");
-            string fileSelected = $"C:/Users/smr04/source/repos/JeopBoardy/data/jData.txt";
-            //using (OpenFileDialog openFileDialog1 = new OpenFileDialog())
-            //{
-            //    openFileDialog1.InitialDirectory = "c:\\";
-            //    openFileDialog1.Filter = "txt files (*.txt)|*.txt|All files (*.*)|*.*";
-            //    openFileDialog1.FilterIndex = 2;
-            //    openFileDialog1.RestoreDirectory = true;
-            //    if (openFileDialog1.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-            //    {
-            //        fileSelected = openFileDialog1.FileName;
-            //    }
-            //}
+            string fileSelected = "";
+            using (OpenFileDialog openFileDialog1 = new OpenFileDialog())
+            {
+                openFileDialog1.InitialDirectory = "c:\\";
+                openFileDialog1.Filter = "txt files (*.txt)|*.txt|All files (*.*)|*.*";
+                openFileDialog1.FilterIndex = 2;
+                openFileDialog1.RestoreDirectory = true;
+                if (openFileDialog1.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                {
+                    fileSelected = openFileDialog1.FileName;
+                }
+            }
             StreamReader sr = null;
             if (File.Exists(fileSelected))
             {

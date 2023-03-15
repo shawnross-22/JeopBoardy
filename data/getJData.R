@@ -35,7 +35,9 @@ getJData <- function(game.ids) {
       gsub(pattern="&amp;", replacement='&') %>%
       gsub(pattern='<a href="https://www.j-archive.com/media/', replacement='<') %>%
       gsub(pattern='<a href="http://www.j-archive.com/media/', replacement='<') %>%
-      gsub(pattern="</a>", replacement='')   
+      gsub(pattern="</a>", replacement='') %>%
+      gsub(pattern='"', replacement="'") %>%
+      gsub(pattern="<[^>]*>", replacement="")
     
     #FJ category line has a couple extra characters
     cats[length(cats)] %<>%
@@ -98,7 +100,8 @@ getJData <- function(game.ids) {
       gsub(pattern="&lt;sub&gt;", replacement="(") %>%
       gsub(pattern="&lt;/sub&gt;", replacement=")") %>%
       gsub(pattern="&lt;b&gt;", replacement="") %>%
-      gsub(pattern="&lt;/b&gt;", replacement="")
+      gsub(pattern="&lt;/b&gt;", replacement="") %>%
+      gsub(pattern='"', replacement="'")
     
     #get responses & clean
     responses <-
@@ -111,7 +114,8 @@ getJData <- function(game.ids) {
       gsub(pattern="\\\\", replacement='') %>%
       gsub(pattern="&amp;", replacement='&') %>%
       gsub(pattern="&lt;i&gt;", replacement="'") %>%
-      gsub(pattern="&lt;/i&gt;", replacement="'")
+      gsub(pattern="&lt;/i&gt;", replacement="'") %>%
+      gsub(pattern='"', replacement="'")
     
     #initialize daily double indicator
     dd <- rep(0,length(index))
@@ -134,8 +138,7 @@ getJData <- function(game.ids) {
           is.dd = dd
         ),
         on = ind
-      ) %>%
-      gsub(pattern='"', replacement="'")
+      )
     
     #write to output object
     df.out[(61*(i-1)+1):(61*i),] <- df.game[,-1]
