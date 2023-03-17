@@ -17,6 +17,7 @@ using System.IO;
 using System.Windows.Forms;
 
 
+
 namespace JeopBoardy
 {
     /// <summary>
@@ -109,6 +110,7 @@ namespace JeopBoardy
             btnFixScore.IsEnabled = false;
             tbQuestion.Visibility = Visibility.Visible;
             tbQuestion.FontSize = 40;
+
             if (!boolDouble)
             {
                 if (clues[btnQs.IndexOf(clickedQuestion)][2].Substring(0, 1) == "1")
@@ -157,6 +159,16 @@ namespace JeopBoardy
                     tbQuestion.Text = clues[btnQs.IndexOf(clickedQuestion)][0];
                     tbAnswer.Text = clues[btnQs.IndexOf(clickedQuestion)][1];
                 }
+                if (tbQuestion.Text.Contains("<") && !tbQuestion.Text.Contains("<20"))
+                {
+                    string url = tbQuestion.Text.Substring(tbQuestion.Text.IndexOf('<') + 1, tbQuestion.Text.IndexOf('>') - tbQuestion.Text.IndexOf('<') - 1);
+                    tbQuestion.Text = tbQuestion.Text.Remove(tbQuestion.Text.IndexOf('<')+1, tbQuestion.Text.IndexOf('>') - tbQuestion.Text.IndexOf('<') - 1);
+                    Uri uri = new Uri(url);
+                    BitmapImage picture = new BitmapImage(uri);
+                    img.Source = picture;
+                    btnShowPicture.Visibility = Visibility.Visible;
+                    btnShowPicture.IsEnabled = true;
+                }
                 if (tbQuestion.Text.Length > 250)
                 {
                     tbQuestion.FontSize = 30;
@@ -185,6 +197,7 @@ namespace JeopBoardy
                         txtDD.Visibility = Visibility.Hidden;
                         tbDD.Visibility = Visibility.Hidden;
                         tbQuestion.Visibility = Visibility.Hidden;
+                        img.Visibility = Visibility.Hidden;
                         tbAnswer.Text = "";
                         clickedScore.Content = Convert.ToString(Convert.ToInt32(clickedScore.Content) + Convert.ToInt32(txtDD.Text));
                         control.IsEnabled = false;
@@ -229,6 +242,16 @@ namespace JeopBoardy
                                     {
                                         tbQuestion.Text = tbQuestion.Text = clues[btnQs.IndexOf(clickedQuestion)][0];
                                         tbAnswer.Text = clues[btnQs.IndexOf(clickedQuestion)][1];
+                                    }
+                                    if (tbQuestion.Text.Contains("<") && !tbQuestion.Text.Contains("<20"))
+                                    {
+                                        string url = tbQuestion.Text.Substring(tbQuestion.Text.IndexOf('<') + 1, tbQuestion.Text.IndexOf('>') - tbQuestion.Text.IndexOf('<') - 1);
+                                        tbQuestion.Text = tbQuestion.Text.Remove(tbQuestion.Text.IndexOf('<') + 1, tbQuestion.Text.IndexOf('>') - tbQuestion.Text.IndexOf('<') - 1);
+                                        Uri uri = new Uri(url);
+                                        BitmapImage picture = new BitmapImage(uri);
+                                        img.Source = picture;
+                                        btnShowPicture.Visibility = Visibility.Visible;
+                                        btnShowPicture.IsEnabled = true;
                                     }
                                     if (tbQuestion.Text.Length > 250)
                                     {
@@ -369,6 +392,7 @@ namespace JeopBoardy
                 else
                 {
                     tbQuestion.Visibility = Visibility.Hidden;
+                    img.Visibility = Visibility.Hidden;
                     tbAnswer.Text = "";
                     if (Convert.ToString(clickedScore.Content) != "No Answer")
                     {
@@ -428,6 +452,7 @@ namespace JeopBoardy
                 txtDD.Visibility = Visibility.Hidden;
                 tbDD.Visibility = Visibility.Hidden;
                 tbQuestion.Visibility = Visibility.Hidden;
+                img.Visibility = Visibility.Hidden;
                 tbAnswer.Text = "";
                 foreach (var button in btnPs)
                 {
@@ -696,6 +721,13 @@ namespace JeopBoardy
                 scoreChange = true;
             }
             
+        }
+
+        private void btnShowPicture_Click(object sender, RoutedEventArgs e)
+        {
+            
+            img.Visibility = Visibility.Visible;
+            tbQuestion.Text = "";
         }
     }
 
