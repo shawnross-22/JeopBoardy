@@ -432,6 +432,8 @@ namespace JeopBoardy
             {
                 tbDD.Text = "Enter Correct Score";
                 txtDD.Visibility = Visibility.Visible;
+                txtDD.IsEnabled = true;
+                tbDD.IsEnabled = true;
                 tbDD.Visibility = Visibility.Visible;
                 foreach (var button in btnPs)
                 {
@@ -724,10 +726,11 @@ namespace JeopBoardy
         }
 
         private void btnShowPicture_Click(object sender, RoutedEventArgs e)
-        {
-            
+        {          
             img.Visibility = Visibility.Visible;
             tbQuestion.Text = "";
+            btnShowPicture.IsEnabled = false;
+            btnShowPicture.Visibility = Visibility.Hidden;
         }
     }
 
