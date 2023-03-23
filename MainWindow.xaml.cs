@@ -422,7 +422,7 @@ namespace JeopBoardy
                         tbChargePlayer.Text = txtPlayers[btnPs.IndexOf(control)].Text;
 
                     }
-                    if (count == 60)
+                    if (count == 3)
                     {
                         finalJeopardy();
                     }
@@ -536,7 +536,7 @@ namespace JeopBoardy
                         System.Windows.Controls.TextBox winner = txtPlayer1;
                         foreach (var player in txtPlayers)
                         {
-                            if (Convert.ToInt32(btnPs[txtPlayers.IndexOf(player)].Content) > Convert.ToInt32(btnPs[txtPlayers.IndexOf(player)].Content))
+                            if (Convert.ToInt32(btnPs[txtPlayers.IndexOf(player)].Content) > Convert.ToInt32(btnPs[txtPlayers.IndexOf(winner)].Content))
                             {
                                 winner = player;
                             }
