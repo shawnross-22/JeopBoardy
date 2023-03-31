@@ -42,12 +42,14 @@ namespace JeopBoardy
         public bool final = false;
         public bool wagers = false;
         public bool scoreChange = false;
-        public bool correctScore = false;
+        public bool undo = false;
+        public System.Windows.Controls.Button lastControl;
         public System.Windows.Controls.Button control;
         public System.Windows.Controls.Button min;
         public System.Windows.Controls.Button mid;
         public System.Windows.Controls.Button max;
         public int turn = 0;
+        public List<System.Windows.Controls.Button> wrong = new List<System.Windows.Controls.Button>();
         System.Windows.Controls.Button clickedScore;
 
 
@@ -63,6 +65,7 @@ namespace JeopBoardy
             btnPs.Add(btnScore1); btnPs.Add(btnScore2); btnPs.Add(btnScore3); btnPs.Add(btnNoAnswer);
             txtPlayers.Add(txtPlayer1); txtPlayers.Add(txtPlayer2); txtPlayers.Add(txtPlayer3);
             control = btnScore1;
+            lastControl = control;
             tbChargePlayer.Text = txtPlayers[btnPs.IndexOf(control)].Text;
 
         }
@@ -107,9 +110,10 @@ namespace JeopBoardy
         private void btnQ_Click(object sender, RoutedEventArgs e)
         {
             clickedQuestion = sender as System.Windows.Controls.Button;
-            btnFixScore.IsEnabled = false;
+            btnUndo.IsEnabled = false;
             tbQuestion.Visibility = Visibility.Visible;
             tbQuestion.FontSize = 40;
+            wrong.Clear();
 
             if (!boolDouble)
             {
@@ -125,7 +129,7 @@ namespace JeopBoardy
                     btnNoAnswer.IsEnabled = true;
                     txtDD.Text = "";
                     txtDD.IsEnabled = true;
-                    btnFixScore.IsEnabled = false;
+                    btnUndo.IsEnabled = false;
                 }
                 
             }
@@ -186,8 +190,8 @@ namespace JeopBoardy
         private void btnScore_Click(object sender, RoutedEventArgs e)
         {
             clickedScore = sender as System.Windows.Controls.Button;
-            btnFixScore.IsEnabled = true;
-            if (!scoreChange)
+            btnUndo.IsEnabled = true;
+            if (!undo)
             {
                 if (DD)
                 {
@@ -204,6 +208,7 @@ namespace JeopBoardy
                         clickedQuestion.IsEnabled = false;
                         clickedQuestion.Visibility = Visibility.Hidden;
                         count += 1;
+                        lastControl = control;
                         control = clickedScore;
                         tbChargePlayer.Text = txtPlayers[btnPs.IndexOf(control)].Text;
                         if (count == 30)
@@ -217,6 +222,7 @@ namespace JeopBoardy
                                     min = btnPs[i];
                                 }
                             }
+                            lastControl = control;
                             control = min;
                             tbChargePlayer.Text = txtPlayers[btnPs.IndexOf(control)].Text;
                         }
@@ -260,7 +266,7 @@ namespace JeopBoardy
                                     wagers = false;
                                     control.IsEnabled = true;
                                     btnNoAnswer.IsEnabled = false;
-                                    btnFixScore.IsEnabled = false;
+                                    btnUndo.IsEnabled = false;
                                     btnNoAnswer.Content = "No Answer";
                                     txtDD.IsEnabled = false;
                                 }
@@ -283,7 +289,7 @@ namespace JeopBoardy
                                     wagers = false;
                                     control.IsEnabled = true;
                                     btnNoAnswer.IsEnabled = false;
-                                    btnFixScore.IsEnabled = false;
+                                    btnUndo.IsEnabled = false;
                                     btnNoAnswer.Content = "No Answer";
                                     txtDD.IsEnabled = false;
                                 }
@@ -368,7 +374,7 @@ namespace JeopBoardy
 
                     if (wagers)
                     {
-                        btnFixScore.IsEnabled = false;
+                        btnUndo.IsEnabled = false;
                         tbQuestion.Visibility = Visibility.Visible;
                         tbQuestion.Text = questions[gameIndex + 484];
                         if (tbQuestion.Text.Length > 250)
@@ -397,7 +403,12 @@ namespace JeopBoardy
                     if (Convert.ToString(clickedScore.Content) != "No Answer")
                     {
                         clickedScore.Content = Convert.ToString(Convert.ToInt32(clickedScore.Content) + Convert.ToInt32(clickedQuestion.Content));
+                        lastControl = control;
                         control = clickedScore;
+                        tbChargePlayer.Text = txtPlayers[btnPs.IndexOf(control)].Text;
+                    }
+                    else
+                    {
                         tbChargePlayer.Text = txtPlayers[btnPs.IndexOf(control)].Text;
                     }
                     foreach (var button in btnPs)
@@ -418,11 +429,12 @@ namespace JeopBoardy
                                 min = btnPs[i];
                             }
                         }
+                        lastControl = control;
                         control = min;
                         tbChargePlayer.Text = txtPlayers[btnPs.IndexOf(control)].Text;
 
                     }
-                    if (count == 3)
+                    if (count == 60)
                     {
                         finalJeopardy();
                     }
@@ -430,26 +442,28 @@ namespace JeopBoardy
             }
             else
             {
-                tbDD.Text = "Enter Correct Score";
-                txtDD.Visibility = Visibility.Visible;
-                txtDD.IsEnabled = true;
-                tbDD.IsEnabled = true;
-                tbDD.Visibility = Visibility.Visible;
+                control = clickedScore;
+                if (Convert.ToString(clickedScore.Content) != "No Answer")
+                {
+                    tbChargePlayer.Text = txtPlayers[btnPs.IndexOf(control)].Text;
+                    clickedScore.Content = Convert.ToString(Convert.ToInt32(clickedScore.Content) + Convert.ToInt32(clickedQuestion.Content));
+                }              
                 foreach (var button in btnPs)
                 {
                     button.IsEnabled = false;
                 }
-                correctScore = true;
+                undo = false;
             }          
         }
 
         private void btnScoreDown_Click(object sender, MouseButtonEventArgs e)
         {
             System.Windows.Controls.Button clickedScore = sender as System.Windows.Controls.Button;
+            wrong.Add(clickedScore);
             if (DD)
             {
                 clickedScore.Content = Convert.ToString(Convert.ToInt32(clickedScore.Content) - Convert.ToInt32(txtDD.Text));
-                btnFixScore.IsEnabled = true;
+                btnUndo.IsEnabled = true;
                 DD = false;
                 txtDD.Visibility = Visibility.Hidden;
                 tbDD.Visibility = Visibility.Hidden;
@@ -474,6 +488,7 @@ namespace JeopBoardy
                             min = btnPs[i];
                         }
                     }
+                    lastControl = control;
                     control = min;
                     tbChargePlayer.Text = txtPlayers[btnPs.IndexOf(clickedScore)].Text;
                 }
@@ -618,7 +633,7 @@ namespace JeopBoardy
                     tbQuestion.Visibility = Visibility.Visible;
                     btnNoAnswer.Content = "Wagers in?";
                     btnNoAnswer.IsEnabled = true;
-                    btnFixScore.IsEnabled = true;
+                    btnUndo.IsEnabled = true;
                 }
                 else
                 {
@@ -703,26 +718,30 @@ namespace JeopBoardy
             }
         }
 
-        private void btnFixScore_Click(object sender, RoutedEventArgs e)
+        private void btnUndo_Click(object sender, RoutedEventArgs e)
         {
-            if (correctScore)
+            control = lastControl;
+            tbChargePlayer.Text = txtPlayers[btnPs.IndexOf(control)].Text;
+            btnUndo.IsEnabled = false;
+            foreach (var btn in btnPs)
             {
-                clickedScore.Content = txtDD.Text;
-                clickedScore.IsEnabled = false;
-                scoreChange = false;
-                tbDD.Text = "Wager?";
-                txtDD.Visibility = Visibility.Hidden;
-                tbDD.Visibility = Visibility.Hidden;
-                correctScore = false;
+                btn.IsEnabled = true;
             }
-            else
+
+            if (Convert.ToString(clickedScore.Content) != "No Answer")
             {
-                btnPs[0].IsEnabled = true;
-                btnPs[1].IsEnabled = true;
-                btnPs[2].IsEnabled = true;
-                scoreChange = true;
+                clickedScore.Content = Convert.ToString(Convert.ToInt32(clickedScore.Content) - Convert.ToInt32(clickedQuestion.Content));
             }
-            
+            if (wrong.Count()>0)
+            {
+                foreach (var btn in wrong)
+                {
+                    btn.Content = Convert.ToString(Convert.ToInt32(btn.Content) + Convert.ToInt32(clickedQuestion.Content));
+                }
+                wrong.Clear();
+            }
+            undo = true;
+
         }
 
         private void btnShowPicture_Click(object sender, RoutedEventArgs e)

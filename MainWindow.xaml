@@ -73,7 +73,7 @@
         <TextBlock HorizontalAlignment="Left" Margin="0,238.5,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Height="5" RenderTransformOrigin="0.5,0.5" Width="600" Background="Black"/>
         <TextBlock HorizontalAlignment="Left" Margin="0,282.5,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Height="5" RenderTransformOrigin="0.5,0.5" Width="600" Background="Black"/>
         <TextBlock HorizontalAlignment="Left" Margin="0,328.5,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Height="2.5" RenderTransformOrigin="0.5,0.5" Width="600" Background="Black"/>
-        <Button x:Name="btnFixScore" Content="Fix Score" HorizontalAlignment="Left" Height="20" Margin="390,10,0,0" VerticalAlignment="Top" Width="70" Click="btnFixScore_Click" Background="#FFFCFCFC" IsEnabled="False"/>
+        <Button x:Name="btnUndo" Content="Fix Score" HorizontalAlignment="Left" Height="20" Margin="390,10,0,0" VerticalAlignment="Top" Width="70" Click="btnUndo_Click" Background="#FFFCFCFC" IsEnabled="False"/>
         <Button x:Name="btnShowPicture" Content="Show Picture" HorizontalAlignment="Left" Height="20" Margin="0,335,0,0" VerticalAlignment="Top" Width="70" Click="btnShowPicture_Click" Background="#FFFCFCFC" Visibility = "Hidden" IsEnabled="False"/>
         <Image x:Name="img" HorizontalAlignment="Center" Margin="0,60,0,0" Width="600" Height="270" VerticalAlignment="Top" Visibility="Hidden" Panel.ZIndex="1"/>
     </Grid>
